@@ -39,7 +39,7 @@ client.on('message', async (message) => {
     let isGroups = message.from.endsWith('@g.us') ? true : false;
 
     async function detailYouTube(url) {
-        client.sendMessage(message.from, '[⏳] Loading..');
+        client.sendMessage(message.from, '*❲⏳❳* *කරුණාකර මදක් රැදීසිටින්න.....*');
         try {
             let info = await ytdl.getInfo(url);
             let data = {
@@ -60,17 +60,17 @@ client.on('message', async (message) => {
                     "viewCount": info.videoDetails.viewCount
                 }
             }
-            client.sendMessage(message.from, `*CHANNEL DETAILS*\n• Name : *${data.channel.name}*\n• User : *${data.channel.user}*\n• Verified : *${data.channel.verified}*\n• Channel : *${data.channel.channelUrl}*\n• Subscriber : *${data.channel.subscriber}*`);
-            client.sendMessage(message.from, `*VIDEO DETAILS*\n• Title : *${data.video.title}*\n• Seconds : *${data.video.lengthSeconds}*\n• VideoURL : *${data.video.videoUrl}*\n• Publish : *${data.video.publishDate}*\n• Viewers : *${data.video.viewCount}*`)
-            client.sendMessage(message.from, '*[✅]* Successfully!');
+            client.sendMessage(message.from, `*🔖 චැනලයෙහි තොරතුරු*\n❲●❳ *චැනලයේ නම* : *${data.channel.name}*\n❲⚡❳ *බාවිත කල පුද්ගලයා* : *${data.channel.user}*\n❲🔱❳ *ආරක්ෂාව* : *${data.channel.verified}*\n❲🏷️❳ *චැනලය* : *${data.channel.channelUrl}*\n❲🍃❳ *සබ්ස්ක්‍රයිබර්ස්* : *${data.channel.subscriber}*\n *👸SAKURA-YT-MD...*`);
+            client.sendMessage(message.from, `*🌿 වීඩියෝවෙහි තොරතුරු*\n❲🔖❳ *මාතෘකාව* : *${data.video.title}*\n❲🕧❳ *කාලසීමාව* : *${data.video.lengthSeconds}*\n❲🖇️❳ *URL ලින්කුව* : *${data.video.videoUrl}*\n❲🍭❳ *ගීතය ජනසතු කල දිනය* : *${data.video.publishDate}*\n❲👀❳ *නැරඹුම් වාර* : *${data.video.viewCount}*\n *👸SAKURA-YT-MD...*`)
+            client.sendMessage(message.from, '📩 *ගීතය සාර්ථකව ලබාදී ඇත...*');
         } catch (err) {
             console.log(err);
-            client.sendMessage(message.from, '*[❎]* Failed!');
+            client.sendMessage(message.from, '❌ *ගීතය ලබාදීමට නොහැකි විය....*');
         }
     }
 
     async function downloadYouTube(url, format, filter) {
-        client.sendMessage(message.from, '[⏳] Loading..');
+        client.sendMessage(message.from, '*❲⏳❳* *කරුණාකර මදක් රැදීසිටින්න....*\n *📩Download by _SAKURA-YT-MD_..*');
         let timeStart = Date.now();
         try {
             let info = await ytdl.getInfo(url);
@@ -97,21 +97,21 @@ client.on('message', async (message) => {
                 let timestamp = Date.now() - timeStart;
                 media.filename = `${config.filename.mp3}.${format}`;
                 await client.sendMessage(message.from, media, { sendMediaAsDocument: true });
-                client.sendMessage(message.from, `• Title : *${data.video.title}*\n• Channel : *${data.channel.user}*\n• View Count : *${data.video.viewCount}*\n• TimeStamp : *${timestamp}*`);
-                client.sendMessage(message.from, '*[✅]* Successfully!');
+                client.sendMessage(message.from, `❲🔖❳ *මාතෘකාව* : *${data.video.title}*\n❲🌿❳ *චැනලය* : *${data.channel.user}*\n❲👀❳ *නැරඹුම් වාර* : *${data.video.viewCount}*\n❲⚖️❳ *කාලසීමාව* : *${timestamp}*`);
+                client.sendMessage(message.from, '*📩 *ගීතය සාර්ථකව ලබාදී ඇත...*');
             });
         } catch (err) {
             console.log(err);
-            client.sendMessage(message.from, '*[❎]* Failed!');
+            client.sendMessage(message.from, '*❌ *ගීතය ලබාදීමට නොහැකි විය....*');
         }
     }
 
     if ((isGroups && config.groups) || isGroups) return;
-    if (message.body == `${config.prefix}help`) return client.sendMessage(message.from, `*${config.name}*\n\n[🎥] : *${config.prefix}video <youtube-url>*\n[🎧] : *${config.prefix}audio <youtube-url>*\n\n*Example :*\n${config.prefix}audio https://youtu.be/abcdefghij`);
-    if (url == undefined) return client.sendMessage(message.from, '*[❎]* Failed!, Please insert YouTube URL');
-    if (!ytdl.validateURL(url)) return client.sendMessage(message.from, '*[❎]* Failed!, Invalid YouTube URL');
+    if (message.body == `${config.prefix}help`) return client.sendMessage(message.from, `*${config.name}*\n\n[🎥] : *${config.prefix}video <youtube-url>*\n[🎧] : *${config.prefix}audio <youtube-url>*\n\n*Example :*\n${config.prefix}audio https://youtu.be`);
+    if (url == undefined) return client.sendMessage(message.from, '*🔖 කරුණාකර නිවැරදි _URL_ ඇතුලත් කරන්න..*');
+    if (!ytdl.validateURL(url)) return client.sendMessage(message.from, '*🔖 නිවැරැදි _URL_ ඇතුලත් කරන්න..*');
     if (message.body.startsWith(`${config.prefix}audio`)) {
-        downloadYouTube(url, 'mp3', 'audioonly');
+        downloadYouTube(url, 'mp3', 'Only Audio');
     } else if (message.body.startsWith(`${config.prefix}video`)) {
         downloadYouTube(url, 'mp4', 'audioandvideo');
     } else if (message.body.startsWith(`${config.prefix}detail`)) {
